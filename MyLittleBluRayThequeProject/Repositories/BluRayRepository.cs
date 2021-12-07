@@ -53,6 +53,44 @@ namespace MyLittleBluRayThequeProject.Repositories
                             Professions = new List<string>{"Acteur"}
                         }
                     }
+                },
+                new BluRay
+                {
+                    Id = 1,
+                    Titre = "My Little film 2",
+                    DateSortie = DateTime.Now,
+                    Version = "Longue",
+                    Acteurs = new List<Personne>
+                    {
+                        new Personne
+                        {
+                            Id = 0,
+                            Nom = "Per",
+                            Prenom = "Sonne",
+                            Nationalite = "Fr",
+                            DateNaissance = DateTime.Now,
+                            Professions = new List<string>{"Acteur"}
+                        }
+                    }
+                },
+                new BluRay
+                {
+                    Id = 1,
+                    Titre = "My Little film 2",
+                    DateSortie = DateTime.Now,
+                    Version = "Longue",
+                    Acteurs = new List<Personne>
+                    {
+                        new Personne
+                        {
+                            Id = 0,
+                            Nom = "Per",
+                            Prenom = "Sonne",
+                            Nationalite = "Fr",
+                            DateNaissance = DateTime.Now,
+                            Professions = new List<string>{"Acteur"}
+                        }
+                    }
                 }
             };
         }
