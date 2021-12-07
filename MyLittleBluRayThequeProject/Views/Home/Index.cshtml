@@ -15,28 +15,67 @@
     ViewData["Title"] = "Home Page";
 }
 @if(Model.SelectedBluRay == null){
-
+<div class="list-audit-cards">
 @foreach (var br in Model?.BluRays)
 {
-     <ul class="fullclick">
-    <li>
+     <div class="audit-card">
+    <ul>
       <h2>@br.Titre</h2>
   
       <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="@br.Id"> Plus d'information...</a>
-    </li>
-  </ul>
- 
+    </ul>
+  </div>
 } 
+</div>
 <button class="open-button" onclick="openForm()">Ajouter un BluRay</button>
 
 <div class="popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
-    <h1>Chat</h1>
+<form action="post" class="form-container">
+<p>Entrer les informations</p>
+<p>Titre</p>
+<input type="text" id="nameFilm" name="nameFilm" placeholder="Nom du film">
 
-    <label for="msg"><b>Message</b></label>
-    <textarea placeholder="Type message.." name="msg" required></textarea>
 
-    <button type="button" class="btn">Send</button>
+
+<label for="lname"> Scénariste
+<input type="text" id="nom" name="nom" placeholder="Nom scenariste">
+<input type="text" id="prenom" name="prenom" placeholder="Prénom scenariste">
+
+</label>
+<label for="lname"> Réalisateur
+<input type="text" id="nom" name="nom" placeholder="Nom réalisateur">
+<input type="text" id="prenom" name="prenom" placeholder="Prénom réalisateur">
+
+</label>
+<label for="lname"> Acteur
+<input type="text" id="nom" name="nom" placeholder="Nom acteur">
+<input type="text" id="prenom" name="prenom" placeholder="Prénom acteur">
+</label>
+<label for="lname"> Durée du film</label>
+<input type="text" id="duree" name="duree" placeholder="Duree film">
+
+
+
+<label for="lname"> Date de sortie du film </label>
+<input type="text" id="date" name="date" placeholder="Date sortie">
+
+
+
+<label for="lname"> Langues</label>
+<input type="text" id="langue" name="langue" placeholder="Langue">
+
+
+
+<label for="lname"> Sous titre</label>
+<input type="text" id="sousTitre" name="sousTitre" placeholder="Sous Titres">
+
+
+
+<label for="lname"> Version</label>
+<input type="text" id="version" name="version" placeholder="Version">
+
+    <button type="button" class="btn" onclick="">Enregistrer</button>
+
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
@@ -85,15 +124,27 @@ titre-m a {
 
 /* Change the link color to #111 (black) on hover */
 
-    .fullclick {
-      margin: 1em 0;
-      padding: 0;
-      max-width: 30em;
-	  border-radius: 5px;
-	 
+    .list-audit-cards {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-left: 10%;
+}
 
-    }
-    .fullclick li {
+    .audit-card {
+	margin-top: 40px;
+	margin-right: 60px;
+    width: 270px;
+	background-color: #fcfcfc;
+	box-shadow: 0px 0px 7px 2px rgba(140, 124, 124, 0.75);
+	-webkit-box-shadow: 0px 0px 7px 2px rgba(140, 124, 124, 0.75);
+	-moz-box-shadow: 0px 0px 7px 2px rgba(140, 124, 124, 0.75);
+	font-size: 20px;
+    	   border-radius: 10px;
+
+}
+
+    .audit-card li {
       list-style: none;
       margin: 1em 0;
       padding: 20px 10px;
@@ -103,13 +154,13 @@ titre-m a {
 
 	   border-radius: 10px;
     }
-    .fullclick a.main {
+    .audit-card  a.main {
       color: #000000;
       text-align: right;
       display: block;
       z-index: 1;
     }
-    .fullclick li a.main::after {
+    .audit-card  li a.main::after {
       position: absolute;
       top: 0;
       left: 0;
@@ -136,17 +187,22 @@ titre-m a {
   display: none;
   position: fixed;
   bottom: 68px;
-  right: 15px;
+  right: 25px;
   border: 3px solid #f1f1f1;
   z-index: 9;
+  	    border-radius: 15px;
+
 
 }
 
 /* Add styles to the form container */
 .form-container {
-  max-width: 300px;
+  max-width: 350px;
+  max-height: 650px;
+  bottom: 68px;
   padding: 10px;
   background-color: white;
+    border-radius: 15px;
 }
 
 /* Full-width textarea */
@@ -186,7 +242,44 @@ titre-m a {
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+
+input[type=text], select {
+width: 80%;
+padding: 12px 20px;
+margin: 8px 0;
+display: inline-block;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
 }
+
+
+
+input[type=submit] {
+width: 100%;
+background-color: #4CAF50;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+
+
+input[type=submit]:hover {
+background-color: #45a049;
+}
+
+
+
+div {
+border-radius: 5px;
+background-color: #f2f2f2;
+padding: 20px;
+}
+
   </style>
   <script
 		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
