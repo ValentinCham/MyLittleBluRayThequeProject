@@ -1,0 +1,96 @@
+﻿@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+@foreach (var br in Model?.BluRays)
+{
+     <ul class="fullclick">
+    <li>
+      <h2>@br.Titre</h2>
+      <p>
+        Réalisé par : @br.Realisateur?.Nom @br.Realisateur?.Prenom  
+        <br/> et écrit par : @br.Scenariste?.Nom @br.Scenariste?.Prenom 
+
+		<br/>
+        	Avec :
+        @foreach(var act in @br.Acteurs){
+            <p>@act.Nom @act.Prenom</p>
+                    @if( @br.Acteurs.Count > 1)
+                    {
+                        <p>& </p>
+                    }
+                }
+
+      </p>
+      <a asp-area="" asp-controller="Home" asp-action="SelectedBluRay" asp-route-id="@br.Id"> Titre : @br.Titre</a>
+    </li>
+  </ul>
+    <div>
+    
+    </div>
+}
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗂</text></svg>">
+  <title>My little Bluray</title>
+  <link rel="stylesheet" href="global-styles.css">
+  <style>
+  .titre {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+.titre-m{
+    float: left;
+}
+
+titre-m a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+titre-m a:hover {
+    background-color: #111;
+}
+    .fullclick {
+      margin: 1em 0;
+      padding: 0;
+      max-width: 30em;
+	  border-radius: 5px;
+	 
+
+    }
+    .fullclick li {
+      list-style: none;
+      margin: 1em 0;
+      padding: 20px 10px;
+      background: #f2f2f7;
+      position: relative;
+	    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+	   border-radius: 10px;
+    }
+    .fullclick a.main {
+      color: #000000;
+      text-align: right;
+      display: block;
+      z-index: 1;
+    }
+    .fullclick li a.main::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: ' ';
+    }
+  </style>
+
