@@ -3,7 +3,6 @@ using MyLittleBluRayThequeProject.Models;
 using MyLittleBluRayThequeProject.Repositories;
 using System.Diagnostics;
 
-
 namespace MyLittleBluRayThequeProject.Controllers
 {
     public class HomeController : Controller
@@ -23,10 +22,10 @@ namespace MyLittleBluRayThequeProject.Controllers
         {
             IndexViewModel model = new IndexViewModel();
             var br = brRepository.GetListeBluRay();
-            model.BluRays = br.ConvertAll(InfoBluRRayViewModel.ToModel);
+            model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
             if (id != null)
             {
-                model.SelectedBluRay = model.BluRays.FirstOrDefault(x => x.Id == id);
+                model.SelectedBluRay = br.FirstOrDefault(x => x.Id == id);
             }
             return View(model);
         }

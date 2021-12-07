@@ -4,7 +4,6 @@ namespace MyLittleBluRayThequeProject.Models
 {
     public class InfoBluRayViewModel
     {
-
         /// <summary>
         /// Identifiant technique
         /// </summary>
