@@ -17,20 +17,17 @@ namespace MyLittleBluRayThequeProject.Controllers
             brRepository = new BluRayRepository();
         }
 
-        public IActionResult Index()
+        public IActionResult Index(long? id)
         {
             IndexViewModel model = new IndexViewModel();
             model.BluRays = brRepository.GetListeBluRay();
+            if (id != null)
+            {
+                model.SelectedBluRay = model.BluRays.FirstOrDefault(x => x.Id == id);
+            }
             return View(model);
         }
 
-        public IActionResult SelectedBluRay([FromRoute]long idBr)
-        {
-            IndexViewModel model = new IndexViewModel();
-            model.BluRays = brRepository.GetListeBluRay();
-            model.SelectedBluRay = model.BluRays.FirstOrDefault(x => x.Id == idBr);
-            return View(model);
-        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
