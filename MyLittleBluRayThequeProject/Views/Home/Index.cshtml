@@ -21,54 +21,27 @@
      <ul class="fullclick">
     <li>
       <h2>@br.Titre</h2>
-  
-      <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="@br.Id"> Plus d'information...</a>
+      <p>
+        Réalisé par : @br.Realisateur?.Nom @br.Realisateur?.Prenom  
+        <br/> et écrit par : @br.Scenariste?.Nom @br.Scenariste?.Prenom 
+
+		<br/>
+        	Avec :
+        @foreach(var act in @br.Acteurs){
+            <p>@act.Nom @act.Prenom</p>
+                    @if( @br.Acteurs.Count > 1)
+                    {
+                        <p>& </p>
+                    }
+                }
+
+      </p>
+      <a asp-area="" asp-controller="Home" asp-action="SelectedBluRay" asp-route-id="@br.Id"> Titre : @br.Titre</a>
     </li>
   </ul>
- 
-} 
-<button class="open-button" onclick="openForm()">Ajouter un BluRay</button>
-
-<div class="popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
-    <h1>Chat</h1>
-
-    <label for="msg"><b>Message</b></label>
-    <textarea placeholder="Type message.." name="msg" required></textarea>
-
-    <button type="button" class="btn">Send</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-  </form>
-</div>
-
-<script>
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
-</script>
-}
-@if(Model.SelectedBluRay != null)
-{
-<div class="text-center">
     <div>
-    titre : @Model.SelectedBluRay.Titre
+    
     </div>
-    <div>
-        Acteurs : @foreach (var act in Model.SelectedBluRay.Acteurs)
-        {
-            <div>nom :  @act.Nom</div>
-            <div>prenom :  @act.Prenom</div>
-        }
-    </div>
-    <div>
-    Date de sortie : @Model.SelectedBluRay.DateSortie.ToShortDateString()
-    </div>
-
-</div> 
 }
 </body>
 </html>
