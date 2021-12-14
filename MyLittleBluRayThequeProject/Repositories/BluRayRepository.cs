@@ -20,7 +20,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             try
             {
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=localhost;User Id=postgres;Password=projet;Database=postgres;");
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=projet;Database=postgres;");
                 conn.Open();
 
                 // Define a query returning a single row result set
@@ -63,11 +63,11 @@ namespace MyLittleBluRayThequeProject.Repositories
             {
                 List<BluRay> qryResult = new List<BluRay>();
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=localhost;User Id=postgres;Password=projet;Database=postgres;");
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=projet;Database=postgres;");
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Titre\", \"Duree\", \"Version\" FROM \"BluRayTheque\".\"BluRay\" where \"Id\" = @p", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"BluRayTheque\".\"BluRay\".\"Id\" , \"Titre\", \"Duree\", \"Version\" FROM \"BluRayTheque\".\"BluRay\"  where \"BluRay\".\"Id\" = @p ", conn);
                 command.Parameters.AddWithValue("p", Id);
 
                 // Execute the query and obtain a result set
@@ -85,6 +85,42 @@ namespace MyLittleBluRayThequeProject.Repositories
                     }); 
 
                 result = qryResult.SingleOrDefault();
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return result;
+        }
+        public List<Personne> GetActorsfromBluRay(long Id)
+        {
+            NpgsqlConnection conn = null;
+            List<Personne> result = new List<Personne>();
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=projet;Database=postgres;");
+                conn.Open();
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("SELECT  \"Personne\".\"Nom\", \"Personne\".\"Prenom\"  FROM  \"BluRayTheque\".\"Acteur\", \"BluRayTheque\".\"Personne\" where \"Acteur\".\"IdBluRay\" = @i and \"Acteur\".\"IdActeur\" = \"Personne\".\"Id\"", conn);
+                command.Parameters.AddWithValue("i", Id);
+
+                // Execute the query and obtain a result set
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                // Output rows
+                while (dr.Read())
+                    result.Add(new Personne
+                    {
+                        Nom = dr[0].ToString(),
+                        Prenom = dr[1].ToString(), 
+                    });
+
 
             }
             finally
