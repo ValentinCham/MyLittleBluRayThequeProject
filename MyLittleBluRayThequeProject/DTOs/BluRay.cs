@@ -18,17 +18,17 @@
         /// <summary>
         /// Le scénariste du film
         /// </summary>
-        public Personne Scenariste  { get; set; }
+        public Personne? Scenariste  { get; set; }
 
         /// <summary>
         /// Le réalisateur du film
         /// </summary>
-        public Personne Realisateur { get; set; }
+        public Personne? Realisateur { get; set; }
 
         /// <summary>
         /// Les acteurs du film
         /// </summary>
-        public List<Personne> Acteurs { get; set; }
+        public List<Personne>? Acteurs { get; set; }
 
         /// <summary>
         /// Durée du film
@@ -43,16 +43,16 @@
         /// <summary>
         /// Langues disponibles sur le BR
         /// </summary>
-        public List<string> Langues { get; set; }
+        public List<string>? Langues { get; set; }
 
         /// <summary>
         /// Sous-titres disponible sur le BR
         /// </summary>
-        public List<string> SsTitres { get; set; }
+        public List<string>? SsTitres { get; set; }
 
         /// <summary>
         /// Version du film sur le BR
         /// </summary>
-        public string Version { get; set; }
+        public string? Version { get; set; }
     }
 }
