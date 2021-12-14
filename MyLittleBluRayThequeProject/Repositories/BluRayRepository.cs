@@ -80,8 +80,9 @@ namespace MyLittleBluRayThequeProject.Repositories
                         Id = long.Parse(dr[0].ToString()),
                         Titre = dr[1].ToString(),
                         Duree = TimeSpan.FromSeconds(long.Parse(dr[2].ToString())),
-                        Version = dr[3].ToString()
-                    });
+                        Version = dr[3].ToString(),
+                        Acteurs = GetActorsfromBluRay(Id)
+                    }); 
 
                 result = qryResult.SingleOrDefault();
 
