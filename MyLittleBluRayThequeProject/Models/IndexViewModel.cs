@@ -6,7 +6,7 @@ namespace MyLittleBluRayThequeProject.Models
     {
         public List<InfoBluRayViewModel> BluRays { get; set; }
 
-        public BluRay? SelectedBluRay { get; set; }
+        public BluRay SelectedBluRay { get; set; }
 
 
     }

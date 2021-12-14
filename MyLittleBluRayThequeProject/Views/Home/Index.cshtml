@@ -96,16 +96,19 @@ function closeForm() {
     <div>
     titre : @Model.SelectedBluRay.Titre
     </div>
-    <div>
-        
-            Acteurs : @foreach (var act in Model.SelectedBluRay.Acteurs?)
+            @if (Model.SelectedBluRay.Acteurs != null)
             {
-                <div>nom :  @act.Nom</div>
-                <div>prenom :  @act.Prenom</div>
+                <div>
+
+                    Acteurs : @foreach (var act in Model.SelectedBluRay.Acteurs)
+                    {
+                        <div>nom :  @act.Nom</div>
+                        <div>prenom :  @act.Prenom</div>
+                    }
+
+                </div>
             }
-        
-    </div>
-    <div>
+            <div>
     Date de sortie : @Model.SelectedBluRay.DateSortie.ToShortDateString()
     </div>
 
