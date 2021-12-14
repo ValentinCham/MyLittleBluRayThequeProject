@@ -30,6 +30,18 @@ namespace MyLittleBluRayThequeProject.Controllers
             return View(model);
         }
 
+        public IActionResult Remove(long id)
+        {
+            IndexViewModel model = new IndexViewModel();
+            var br = brRepository.GetListeBluRay();
+            model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
+            if (id != default)
+            {
+                brRepository.supprimeFilm(id);
+            }
+            return Redirect("https://localhost:7266/");
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -132,5 +132,34 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
             return result;
         }
+
+        public void supprimeFilm(long Id)
+        {
+            NpgsqlConnection conn = null;
+            BluRay result = new BluRay();
+            try
+            {
+                List<BluRay> qryResult = new List<BluRay>();
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=projet;Database=postgres;");
+                conn.Open();
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"BluRay\" where \"BluRay\".\"Id\" = @id", conn);
+                command.Parameters.AddWithValue("id", Id);
+ 
+
+                // Execute the query and obtain a result set
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
     }
 }

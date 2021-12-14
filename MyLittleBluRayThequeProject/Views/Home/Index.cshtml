@@ -110,10 +110,9 @@ function closeForm() {
      <div>
     Version : @Model.SelectedBluRay.Version
     </div>
-    <div>
-    Date de sortie : @Model.SelectedBluRay.DateSortie.ToShortDateString()
-    </div>
-<button class="button">Supprimer</button>
+    <button class="button">Supprimer</button>
+   <a asp-area="" asp-controller="Home" asp-action="Remove" asp-route-id="@Model.SelectedBluRay.Id"> Supprimer</a>
+
   </div>
 </div>
 }
