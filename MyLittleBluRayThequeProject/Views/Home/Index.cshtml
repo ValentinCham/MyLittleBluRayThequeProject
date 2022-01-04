@@ -94,8 +94,8 @@ function closeForm() {
 {
 <div class="card">
   <div class="container">
-<div>
-    titre : @Model.SelectedBluRay.Titre
+<div class ="titreBlu" >
+        @Model.SelectedBluRay.Titre
 </div>
     <div>
         Acteurs : @foreach (var act in Model.SelectedBluRay.Acteurs)
@@ -249,8 +249,7 @@ titre-m a {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 40%;
-  border-radius:3%;
-  background-color: rgb(232, 218, 239);
+  border-radius:30px;
   margin-left: 30%;      
 }
 
@@ -270,7 +269,7 @@ form{
 	text-align: right;
 }
 .button {
-  background-color: #4CAF50; /* Green */
+  border-color : red;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -281,11 +280,21 @@ form{
   margin: 4px 2px;
   cursor: pointer;
   border-radius:5%;
+  float: right;
 }
 
 h1{
 	text-align:center;
 }
+
+/*Titre BluRay*/
+.titreBlu{
+    text-align: center;
+    color: rgb(20, 143, 119);
+    font-size: 30px;
+    font-weight: bold;
+}
+
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
