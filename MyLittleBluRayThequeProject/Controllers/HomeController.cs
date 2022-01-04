@@ -34,6 +34,8 @@ namespace MyLittleBluRayThequeProject.Controllers
             }
             return View(model);
         }
+
+
         public IActionResult Privacy()
         {
             return View();
@@ -52,15 +54,39 @@ namespace MyLittleBluRayThequeProject.Controllers
             AddBluRayBodyViewModel model = new AddBluRayBodyViewModel();
             return View(model);
         }
-        [HttpPost]
-        public IActionResult AddBluRay()
+        /* [HttpPost]
+         public IActionResult AddBluRay()
+         {
+             brRepository.AjouterBluRay()
+         }*/
+
+        public IActionResult Remove(long id)
         {
-            brRepository.AjouterBluRay()
+            IndexViewModel model = new IndexViewModel();
+            var br = brRepository.GetListeBluRay();
+            model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
+            if (id != default)
+            {
+                brRepository.supprimeFilm(id);
+            }
+            return Redirect("https://localhost:7266/");
+        }
+
+        public IActionResult EmpruterUnBluRay(long id)
+        {
+            IndexViewModel model = new IndexViewModel();
+            var br = brRepository.GetListeBluRay();
+            model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
+            if (id != default)
+            {
+                brRepository.Empruter(id);
+            }
+            return Redirect("https://localhost:7266/");
         }
 
 
 
 
-     
+
     }
 }

@@ -14,12 +14,14 @@ namespace MyLittleBluRayThequeProject.Controllers
 
         private readonly BluRayRepository brRepository;
         private readonly BluRayBusiness brBusiness;
+        private readonly BluRayRepository bluRayDispo;
 
         public BluRaysController(ILogger<BluRaysController> logger)
         {
             _logger = logger;
             brRepository = new BluRayRepository();
             brBusiness = new BluRayBusiness();
+            bluRayDispo = new BluRayRepository();
         }
 
         [HttpGet()]
@@ -37,15 +39,25 @@ namespace MyLittleBluRayThequeProject.Controllers
             BluRay br = brBusiness.GetBluRay(route.IdBluray);
             return new OkObjectResult(br);
         }
+
         [HttpPost()]
         public void AjouterBluRay(string titre, int duree, DateTime date, string version, Boolean emprunt, Boolean disponible)
         {
             brRepository.AjouterBluRay(titre, duree, date, version, emprunt, disponible);
         }
+        
         [HttpPost("{IdBluray}/Emprunt")]
         public ObjectResult EmprunterBluRay([FromRoute]IdBluRayRoute route)
         {
             return new CreatedResult($"{route.IdBluray}", null);
         }
+
+        [HttpGet("{IdBluray}/Disponible")]
+        public BluRay bluRayDisponible([FromRoute] IdBluRayRoute route)
+        {
+            BluRay br = bluRayDispo.Dispo(route.IdBluray);
+            return br;
+        }
+
     }
 }

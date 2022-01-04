@@ -54,5 +54,10 @@
         /// Version du film sur le BR
         /// </summary>
         public string? Version { get; set; }
+
+        /// <summary>
+        /// Disponibilité du BluRay
+        /// </summary>
+        public Boolean Disponible { get; set; }
     }
 }
