@@ -35,7 +35,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                     {
                         Id = long.Parse(dr[0].ToString()),
                         Titre = dr[1].ToString(),
-                        Duree = TimeSpan.FromSeconds(long.Parse(dr[2].ToString())),
+                        Duree = long.Parse(dr[2].ToString()),
                         Version = dr[3].ToString(),
                         DateSortie = DateTime.Parse(dr[4].ToString()),
                     });
@@ -80,7 +80,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                     {
                         Id = long.Parse(dr[0].ToString()),
                         Titre = dr[1].ToString(),
-                        Duree = TimeSpan.FromSeconds(long.Parse(dr[2].ToString())),
+                        Duree = long.Parse(dr[2].ToString()),
                         Version = dr[3].ToString(),
                         DateSortie = DateTime.Parse(dr[4].ToString()),
                     });
@@ -98,7 +98,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             return result;
         }
 
-        public void AjouterBluRay(string titre, int duree, DateTime date, string version, Boolean emprunt, Boolean disponible)
+        public void AjouterBluRay(string titre, long duree, DateTime date, string version, Boolean disponible)
         {
             NpgsqlConnection conn = null;
             try
@@ -108,13 +108,12 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("Insert into \"BluRayTheque\".\"BluRay\" (\"Titre\", \"Duree\",\"DateSortie\",\"Version\",\"Emprunt\",\"Disponible\") values (@titre, @duree , @date, @version, @emprunt, @disponible)", conn);
+                NpgsqlCommand command = new NpgsqlCommand("Insert into \"BluRayTheque\".\"BluRay\" (\"Titre\", \"Duree\",\"DateSortie\",\"Version\",\"Disponible\") values (@titre, @duree , @date, @version, @disponible)", conn);
 
                 command.Parameters.AddWithValue("titre", titre);
                 command.Parameters.AddWithValue("duree", duree);
                 command.Parameters.AddWithValue("date", date);
                 command.Parameters.AddWithValue("version", version);
-                command.Parameters.AddWithValue("emprunt", emprunt);
                 command.Parameters.AddWithValue("disponible", disponible);
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();

@@ -42,6 +42,11 @@ namespace MyLittleBluRayThequeProject.Business
 
             return bluRay;
         }
-      
+        public void AddBluRay(string titre, long duree, DateTime date, string version, Boolean disponible)
+        {
+            bluRayRepository.AjouterBluRay(titre, duree, date, version, disponible);
+        }
+
+
     }
 }

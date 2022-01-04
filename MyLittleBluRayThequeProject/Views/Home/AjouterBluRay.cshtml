@@ -10,16 +10,16 @@
 @model AddBluRayBodyViewModel
 <h2>Ajouter un nouveau BluRay</h2>
 
-<form asp-controller="Home" asp-action="AjoutBluRay" method="post"> 
+<form asp-controller="Home" asp-action="AddBluRay" method="post"> 
 		<div class="card" >
 		<div class="mb-3">
 		 
 
-		  <input type="text" class="form-control" name="Titre" id="titre" placeholder="Titre du BluRay" required>
+		  <input type="text" class="form-control" name="Titre" id="titre" asp-form="@Model.Titre" placeholder="Titre du BluRay" required>
 		</div>
 		<div class="mb-3">
 		 
-		  <input type="number" class="form-control" name="Duree" id="duree" placeholder="Durée du film" required>
+		  <input type="number" class="form-control" name="Duree" asp-form="@Model.Duree" id="duree" placeholder="Durée du film" required>
 		</div>
 
 		<div class="form-floating mb-4 d-flex">
@@ -29,6 +29,7 @@
 				 name="Date"
 				 id="date"
 				 required
+				 asp-form="@Model.Date"
 				 placeholder="DD/MM/YYYY">
 		  <label for="datepicker1">Date de sortie du film (jj/mm/aaaa)</label>
 		</div>
@@ -37,7 +38,7 @@
 
 		<div class="input-group mb-3">
 			  <label class="input-group-text" for="inputGroupSelect01">Version</label>
-			  <select class="form-select" name="Version" id="version">
+			  <select class="form-select" name="Version" id="version" asp-form="@Model.Version">
 				<option value="courte">Courte</option>
 				<option value="longue">Longue</option>
 			  </select>

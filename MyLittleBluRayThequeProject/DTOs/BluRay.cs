@@ -33,7 +33,7 @@
         /// <summary>
         /// Durée du film
         /// </summary>
-        public TimeSpan Duree { get; set; }    
+        public long Duree { get; set; }    
 
         /// <summary>
         /// Date de sortie du film
@@ -54,5 +54,9 @@
         /// Version du film sur le BR
         /// </summary>
         public string? Version { get; set; }
+
+        public Boolean Disponible { get; set; }
+
+        public Boolean Emprunt  { get; set; }               
     }
 }

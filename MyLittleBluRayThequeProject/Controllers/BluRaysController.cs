@@ -37,15 +37,25 @@ namespace MyLittleBluRayThequeProject.Controllers
             BluRay br = brBusiness.GetBluRay(route.IdBluray);
             return new OkObjectResult(br);
         }
-        [HttpPost()]
-        public void AjouterBluRay(string titre, int duree, DateTime date, string version, Boolean emprunt, Boolean disponible)
-        {
-            brRepository.AjouterBluRay(titre, duree, date, version, emprunt, disponible);
-        }
+
         [HttpPost("{IdBluray}/Emprunt")]
-        public ObjectResult EmprunterBluRay([FromRoute]IdBluRayRoute route)
+        public ObjectResult EmprunterBluRay([FromRoute] IdBluRayRoute route)
         {
             return new CreatedResult($"{route.IdBluray}", null);
+        }
+        [HttpPost()]
+        public ObjectResult AddBluRay(string titre, long duree, DateTime date, string version, Boolean disponible)
+        {
+            BluRay bluRay = new BluRay();
+            bluRay.Titre = titre;
+            bluRay.Duree = duree;
+            bluRay.DateSortie = date;   
+            bluRay.Version = version;
+            bluRay.Disponible  = disponible;
+            brBusiness.AddBluRay(titre, duree, date, version, disponible);
+
+
+            return new OkObjectResult(bluRay);
         }
     }
 }

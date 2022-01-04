@@ -52,10 +52,15 @@ namespace MyLittleBluRayThequeProject.Controllers
             AddBluRayBodyViewModel model = new AddBluRayBodyViewModel();
             return View(model);
         }
+
         [HttpPost]
-        public IActionResult AddBluRay()
+        public IActionResult AddBluRay(AddBluRayBodyViewModel model)
         {
-            brRepository.AjouterBluRay()
+            brBusiness.AddBluRay(model.Titre, model.Duree, model.Date, model.Version, true);
+            IndexViewModel model2 = new IndexViewModel();
+            var br = brBusiness.GetListeBluRay();
+            model2.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
+            return View("Index", model2);
         }
 
 
