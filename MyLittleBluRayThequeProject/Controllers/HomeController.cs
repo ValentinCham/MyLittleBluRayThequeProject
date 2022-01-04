@@ -23,21 +23,10 @@ namespace MyLittleBluRayThequeProject.Controllers
 
         }
 
-        /**public IActionResult Index(long? id)
-        {
-            IndexViewModel model = new IndexViewModel();
-            var br = brRepository.GetListeBluRay();
-            model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
-            if (id != null)
-            {
-                model.SelectedBluRay = brRepository.GetBluRay(id.Value);
-            }
-            return View(model);
-        }**/
         public IActionResult Index(long? id)
         {
             IndexViewModel model = new IndexViewModel();
-            var br = brRepository.GetListeBluRay();
+            var br = brBusiness.GetListeBluRay();
             model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
             if (id != null)
             {
@@ -56,11 +45,19 @@ namespace MyLittleBluRayThequeProject.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public IActionResult AjouterBluRay2()
+
+        
+        public IActionResult AjouterBluRay()
         {
-            AjouterBluRayViewModel model = new AjouterBluRayViewModel();
+            AddBluRayBodyViewModel model = new AddBluRayBodyViewModel();
             return View(model);
         }
+        [HttpPost]
+        public IActionResult AddBluRay()
+        {
+            brRepository.AjouterBluRay()
+        }
+
 
 
 

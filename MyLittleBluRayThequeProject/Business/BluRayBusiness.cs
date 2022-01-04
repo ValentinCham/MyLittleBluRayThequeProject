@@ -16,6 +16,16 @@ namespace MyLittleBluRayThequeProject.Business
             this.personneRepository = new PersonneRepository();
         }
 
+        public List<BluRay> GetListeBluRay()
+        {
+            List<BluRay> bluRays =  new();
+            bluRays = bluRayRepository.GetListeBluRay();
+            if (bluRays == null)
+            {
+                throw new ArgumentException($"Blurays non trouvé");
+            }
+            return bluRays;
+        }
         public BluRay GetBluRay(long idBr)
         {
             BluRay bluRay = bluRayRepository.GetBluRay(idBr);
@@ -32,5 +42,6 @@ namespace MyLittleBluRayThequeProject.Business
 
             return bluRay;
         }
+      
     }
 }

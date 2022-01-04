@@ -24,7 +24,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Titre\", \"Duree\", \"Version\" FROM \"BluRayTheque\".\"BluRay\"", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Titre\", \"Duree\", \"Version\" ,\"DateSortie\" FROM \"BluRayTheque\".\"BluRay\"", conn);
 
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -36,7 +36,8 @@ namespace MyLittleBluRayThequeProject.Repositories
                         Id = long.Parse(dr[0].ToString()),
                         Titre = dr[1].ToString(),
                         Duree = TimeSpan.FromSeconds(long.Parse(dr[2].ToString())),
-                        Version = dr[3].ToString()
+                        Version = dr[3].ToString(),
+                        DateSortie = DateTime.Parse(dr[4].ToString()),
                     });
 
             }
@@ -67,7 +68,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Titre\", \"Duree\", \"Version\" FROM \"BluRayTheque\".\"BluRay\" where \"Id\" = @p", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Titre\", \"Duree\", \"Version\" , \"DateSortie\" FROM \"BluRayTheque\".\"BluRay\" where \"Id\" = @p", conn);
                 command.Parameters.AddWithValue("p", Id);
 
                 // Execute the query and obtain a result set
@@ -80,7 +81,8 @@ namespace MyLittleBluRayThequeProject.Repositories
                         Id = long.Parse(dr[0].ToString()),
                         Titre = dr[1].ToString(),
                         Duree = TimeSpan.FromSeconds(long.Parse(dr[2].ToString())),
-                        Version = dr[3].ToString()
+                        Version = dr[3].ToString(),
+                        DateSortie = DateTime.Parse(dr[4].ToString()),
                     });
 
                 result = qryResult.SingleOrDefault();
@@ -96,7 +98,36 @@ namespace MyLittleBluRayThequeProject.Repositories
             return result;
         }
 
+        public void AjouterBluRay(string titre, int duree, DateTime date, string version, Boolean emprunt, Boolean disponible)
+        {
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
 
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("Insert into \"BluRayTheque\".\"BluRay\" (\"Titre\", \"Duree\",\"DateSortie\",\"Version\",\"Emprunt\",\"Disponible\") values (@titre, @duree , @date, @version, @emprunt, @disponible)", conn);
+
+                command.Parameters.AddWithValue("titre", titre);
+                command.Parameters.AddWithValue("duree", duree);
+                command.Parameters.AddWithValue("date", date);
+                command.Parameters.AddWithValue("version", version);
+                command.Parameters.AddWithValue("emprunt", emprunt);
+                command.Parameters.AddWithValue("disponible", disponible);
+                // Execute the query and obtain a result set
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         public void DeleteBluRay(long Id)
         {
@@ -104,11 +135,11 @@ namespace MyLittleBluRayThequeProject.Repositories
             try
             {
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=projet;Database=postgres;");
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("Delete", conn);
+                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"BluRay\" where \"BluRay\".\"Id\" = @id", conn);
                 command.Parameters.AddWithValue("i", Id);
 
                 // Execute the query and obtain a result set
@@ -124,21 +155,18 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
         }
 
-        public void supprimeFilm(long Id)
+        public void EmpruterBluRay(long Id)
         {
             NpgsqlConnection conn = null;
-            BluRay result = new BluRay();
             try
             {
-                List<BluRay> qryResult = new List<BluRay>();
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=projet;Database=postgres;");
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"BluRay\" where \"BluRay\".\"Id\" = @id", conn);
-                command.Parameters.AddWithValue("id", Id);
- 
+                NpgsqlCommand command = new NpgsqlCommand("UPDATE \"BluRayTheque\".\"BluRay\" SET \"Disponible\" = false WHERE \"Id\" = @i", conn);
+                command.Parameters.AddWithValue("i", Id);
 
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -151,6 +179,34 @@ namespace MyLittleBluRayThequeProject.Repositories
                     conn.Close();
                 }
             }
+
+        }
+
+        public void RendreBluRay(long Id)
+        {
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("UPDATE \"BluRayTheque\".\"BluRay\" SET \"Disponible\" = true WHERE \"Id\" = @i", conn);
+                command.Parameters.AddWithValue("i", Id);
+
+                // Execute the query and obtain a result set
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
         }
     }
 }
