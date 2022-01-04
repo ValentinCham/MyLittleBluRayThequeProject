@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLittleBluRayThequeProject.Business;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyLittleBluRayThequeProject.Models;
 using MyLittleBluRayThequeProject.Repositories;
 using System.Diagnostics;
+
 
 namespace MyLittleBluRayThequeProject.Controllers
 {
@@ -11,18 +13,17 @@ namespace MyLittleBluRayThequeProject.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly BluRayRepository brRepository;
-
         private readonly BluRayBusiness brBusiness;
-
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
             brRepository = new BluRayRepository();
             brBusiness = new BluRayBusiness();
+
         }
 
-        public IActionResult Index(long? id)
+        /**public IActionResult Index(long? id)
         {
             IndexViewModel model = new IndexViewModel();
             var br = brRepository.GetListeBluRay();
@@ -32,20 +33,18 @@ namespace MyLittleBluRayThequeProject.Controllers
                 model.SelectedBluRay = brRepository.GetBluRay(id.Value);
             }
             return View(model);
-        }
-
-       /* public IActionResult Remove(long id)
+        }**/
+        public IActionResult Index(long? id)
         {
             IndexViewModel model = new IndexViewModel();
             var br = brRepository.GetListeBluRay();
             model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
-            if (id != default)
+            if (id != null)
             {
-                brRepository.supprimeFilm(id);
+                model.SelectedBluRay = brBusiness.GetBluRay(id.Value);
             }
-            return Redirect("https://localhost:7266/");
-        }*/
-
+            return View(model);
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -57,5 +56,14 @@ namespace MyLittleBluRayThequeProject.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult AjouterBluRay2()
+        {
+            AjouterBluRayViewModel model = new AjouterBluRayViewModel();
+            return View(model);
+        }
+
+
+
+     
     }
 }

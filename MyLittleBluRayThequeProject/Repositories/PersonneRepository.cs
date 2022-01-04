@@ -9,6 +9,7 @@ namespace MyLittleBluRayThequeProject.Repositories
 
         public PersonneRepository() { }
 
+
         public Personne GetRealisateurBr(long idBr)
         {
 
@@ -20,19 +21,17 @@ namespace MyLittleBluRayThequeProject.Repositories
 
                 List<Personne> qryResult = new List<Personne>();
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=49rkpFl0;Database=postgres;");
+
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
                 tran = conn.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("select \"BluRayTheque\".\"GetRealisateurByBRId\"(@brid, @cur)", conn))
+                using (var cmd = new NpgsqlCommand("Select per.\"Id\", per.\"Nom\", per.\"Prenom\", per.\"DateNaissance\", per.\"Nationalite\" from \"BluRayTheque\".\"Realisateur\" as r INNER JOIN \"BluRayTheque\".\"Personne\" as per ON per.\"Id\" = r.\"IdRealisateur\" where r.\"IdBluRay\" = @brid; ", conn))
+
                 {
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("brid", idBr);
                     cmd.Parameters.Add(new NpgsqlParameter("@cur", NpgsqlTypes.NpgsqlDbType.Refcursor) { Direction = ParameterDirection.InputOutput, Value = "cur" });
 
-                    cmd.ExecuteNonQuery();
-
-                    cmd.CommandText = "fetch all in \"cur\"";
-                    cmd.CommandType = CommandType.Text;
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -71,19 +70,14 @@ namespace MyLittleBluRayThequeProject.Repositories
             try
             {
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=49rkpFl0;Database=postgres;");
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
                 tran = conn.BeginTransaction();
-                using (var cmd = new NpgsqlCommand("select \"BluRayTheque\".\"GetActeursByBRId\"(@brid, @cur)", conn))
+                using (var cmd = new NpgsqlCommand("Select per.\"Id\", per.\"Nom\", per.\"Prenom\", per.\"DateNaissance\", per.\"Nationalite\" from \"BluRayTheque\".\"Acteur\" as a INNER JOIN \"BluRayTheque\".\"Personne\" as per ON per.\"Id\" = a.\"IdActeur\" where a.\"IdBluRay\" = @brid; ", conn))
                 {
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("brid", idBr);
                     cmd.Parameters.Add(new NpgsqlParameter("@cur", NpgsqlTypes.NpgsqlDbType.Refcursor) { Direction = ParameterDirection.InputOutput, Value = "cur" });
-
-                    cmd.ExecuteNonQuery();
-
-                    cmd.CommandText = "fetch all in \"cur\"";
-                    cmd.CommandType = CommandType.Text;
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -113,3 +107,4 @@ namespace MyLittleBluRayThequeProject.Repositories
         }
     }
 }
+

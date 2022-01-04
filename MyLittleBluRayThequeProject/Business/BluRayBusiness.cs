@@ -10,7 +10,8 @@ namespace MyLittleBluRayThequeProject.Business
         private readonly PersonneRepository personneRepository;
 
         public BluRayBusiness()
-        {
+        { 
+
             this.bluRayRepository = new BluRayRepository();
             this.personneRepository = new PersonneRepository();
         }
@@ -19,7 +20,8 @@ namespace MyLittleBluRayThequeProject.Business
         {
             BluRay bluRay = bluRayRepository.GetBluRay(idBr);
 
-            if (bluRay == null)
+
+            if(bluRay == null)
             {
                 throw new ArgumentException($"Bluray d'id :{idBr} non trouvé");
             }

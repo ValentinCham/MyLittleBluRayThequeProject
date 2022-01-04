@@ -27,69 +27,9 @@
   </div>
 } 
 </div>
-<button class="open-button" onclick="openForm()">Ajouter un BluRay</button>
 
-<div class="popup" id="myForm">
-<form action="post" class="form-container">
-<p>Entrer les informations</p>
-<p>Titre</p>
-<input type="text" id="nameFilm" name="nameFilm" placeholder="Nom du film">
-
-
-
-<label for="lname"> Scénariste
-<input type="text" id="nom" name="nom" placeholder="Nom scenariste">
-<input type="text" id="prenom" name="prenom" placeholder="Prénom scenariste">
-
-</label>
-<label for="lname"> Réalisateur
-<input type="text" id="nom" name="nom" placeholder="Nom réalisateur">
-<input type="text" id="prenom" name="prenom" placeholder="Prénom réalisateur">
-
-</label>
-<label for="lname"> Acteur
-<input type="text" id="nom" name="nom" placeholder="Nom acteur">
-<input type="text" id="prenom" name="prenom" placeholder="Prénom acteur">
-</label>
-<label for="lname"> Durée du film</label>
-<input type="text" id="duree" name="duree" placeholder="Duree film">
-
-
-
-<label for="lname"> Date de sortie du film </label>
-<input type="text" id="date" name="date" placeholder="Date sortie">
-
-
-
-<label for="lname"> Langues</label>
-<input type="text" id="langue" name="langue" placeholder="Langue">
-
-
-
-<label for="lname"> Sous titre</label>
-<input type="text" id="sousTitre" name="sousTitre" placeholder="Sous Titres">
-
-
-
-<label for="lname"> Version</label>
-<input type="text" id="version" name="version" placeholder="Version">
-
-    <button type="button" class="btn" onclick="">Enregistrer</button>
-
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-  </form>
-</div>
-
-<script>
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
 }
 
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
-</script>
-}
 @if(Model.SelectedBluRay != null)
 {
 <div class="card">
@@ -110,9 +50,12 @@ function closeForm() {
      <div>
     Version : @Model.SelectedBluRay.Version
     </div>
-    <button class="button">
-        <a asp-area="" asp-controller="Home" asp-action="Remove" asp-route-id="@Model.SelectedBluRay.Id"> Supprimer</a>
-   </button>
+
+    <div>
+    Date de sortie : @Model.SelectedBluRay.DateSortie.ToShortDateString()
+    </div>
+    <div>Réalisateur : @Model.SelectedBluRay.Realisateur?.Nom - @Model.SelectedBluRay.Realisateur?.Prenom</div>
+<button class="button">Supprimer</button>
   </div>
 </div>
 }

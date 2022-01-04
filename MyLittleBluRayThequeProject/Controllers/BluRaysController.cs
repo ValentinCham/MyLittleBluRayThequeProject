@@ -23,12 +23,14 @@ namespace MyLittleBluRayThequeProject.Controllers
         public ObjectResult Get()
         {
             List<BluRay> br = brRepository.GetListeBluRay();
-            List<InfoBluRayApiViewModel> bluRays = br.ConvertAll(InfoBluRayApiViewModel.ToModel);
+
+            List<InfoBluRayViewModel> bluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
             return new OkObjectResult(bluRays);
         }
 
         [HttpPost("{IdBluray}/Emprunt")]
-        public ObjectResult EmprunterBluRay([FromRoute] IdBluRayRoute route)
+
+        public ObjectResult EmprunterBluRay([FromRoute]IdBluRayRoute route)
         {
             return new CreatedResult($"{route.IdBluray}", null);
         }
