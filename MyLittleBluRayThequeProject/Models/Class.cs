@@ -2,7 +2,7 @@
 
 namespace MyLittleBluRayThequeProject.Models
 {
-    public class InfoBluRayViewModel
+    public class InfoBluRayApiViewModel
     {
         /// <summary>
         /// Identifiant technique
@@ -19,13 +19,13 @@ namespace MyLittleBluRayThequeProject.Models
         /// </summary>
         public string Version { get; set; }
 
-        public static InfoBluRayViewModel ToModel(BluRay dto)
+        public static InfoBluRayApiViewModel ToModel(BluRay dto)
         {
             if (dto == null)
             {
                 return null;
             }
-            return new InfoBluRayViewModel { Id = dto.Id, Titre = dto.Titre, Version = dto.Version };
+            return new InfoBluRayApiViewModel { Id = dto.Id, Titre = dto.Titre, Version = dto.Version };
         }
     }
 }
