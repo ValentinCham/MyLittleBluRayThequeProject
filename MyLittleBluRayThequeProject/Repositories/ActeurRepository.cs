@@ -4,9 +4,9 @@ using Npgsql;
 
 namespace MyLittleBluRayThequeProject.Repositories
 {
-    public class ActeurRepositery : Controller
+    public class ActeurRepository : Controller
     {
-        public ActeurRepositery(){
+        public ActeurRepository(){
 
             }
         public List<Personne> GetActorsfromBluRay(long Id)

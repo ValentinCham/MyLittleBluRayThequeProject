@@ -98,9 +98,10 @@ namespace MyLittleBluRayThequeProject.Repositories
             return result;
         }
 
-        public void AjouterBluRay(string titre, long duree, DateTime date, string version, Boolean disponible)
+        public long CreateBluRay(string titre, long duree, DateTime date, string version, Boolean disponible)
         {
             NpgsqlConnection conn = null;
+            long idReal = -1;
             try
             {
                 // Connect to a PostgreSQL database
@@ -108,7 +109,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("Insert into \"BluRayTheque\".\"BluRay\" (\"Titre\", \"Duree\",\"DateSortie\",\"Version\",\"Disponible\") values (@titre, @duree , @date, @version, @disponible)", conn);
+                NpgsqlCommand command = new NpgsqlCommand("Insert into \"BluRayTheque\".\"BluRay\" (\"Titre\", \"Duree\",\"DateSortie\",\"Version\",\"Disponible\") values (@titre, @duree , @date, @version, @disponible) RETURNING \"Id\"", conn);
 
                 command.Parameters.AddWithValue("titre", titre);
                 command.Parameters.AddWithValue("duree", duree);
@@ -117,6 +118,10 @@ namespace MyLittleBluRayThequeProject.Repositories
                 command.Parameters.AddWithValue("disponible", disponible);
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();
+                if (dr.Read())
+                {
+                    idReal = long.Parse((dr[0]).ToString());
+                }
 
             }
             finally
@@ -126,6 +131,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                     conn.Close();
                 }
             }
+            return idReal;
         }
 
 
@@ -273,6 +279,43 @@ namespace MyLittleBluRayThequeProject.Repositories
                     conn.Close();
                 }
             }
+
+        }
+
+        public List<Langue> GetLangues()
+        {
+            NpgsqlConnection conn = null;
+            List<Langue> result = new List<Langue>();
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Langue\" FROM \"BluRayTheque\".\"RefLangue\"", conn);
+
+                // Execute the query and obtain a result set
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                // Output rows
+                while (dr.Read())
+                    result.Add(new Langue
+                    {
+                        Id = long.Parse(dr[0].ToString()),
+                        Valeur = dr[1].ToString(),
+                       
+                    });
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return result;
 
         }
     }

@@ -9,6 +9,41 @@ namespace MyLittleBluRayThequeProject.Repositories
 
         public PersonneRepository() { }
 
+        public List<Personne> GetPersonne()
+        {
+            NpgsqlConnection conn = null;
+            List<Personne> qryResult = new List<Personne>();
+            try
+            {
+
+                // Connect to a PostgreSQL database
+
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+                var cmd = new NpgsqlCommand("Select \"Personne\".\"Id\", \"Personne\".\"Nom\", \"Personne\".\"Prenom\", \"Personne\".\"DateNaissance\", \"Personne\".\"Nationalite\" from \"BluRayTheque\".\"Personne\"", conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                // Output rows
+                while (dr.Read())
+                    qryResult.Add(new Personne
+                    {
+                        Id = dr.GetInt32(0),
+                        Nom = dr.GetString(1),
+                        Prenom = dr.GetString(2),
+                        DateNaissance = dr.GetDateTime(3),
+                        Nationalite = dr.GetString(4),
+                    });
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return qryResult;
+        }
 
         public Personne GetRealisateurBr(long idBr)
         {

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MyLittleBluRayThequeProject.Models;
 using MyLittleBluRayThequeProject.Repositories;
 using System.Diagnostics;
-
+using MyLittleBluRayThequeProject.DTOs;
 
 namespace MyLittleBluRayThequeProject.Controllers
 {
@@ -48,13 +48,8 @@ namespace MyLittleBluRayThequeProject.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        
-        public IActionResult AjouterBluRay()
-        {
-            AddBluRayBodyViewModel model = new AddBluRayBodyViewModel();
-            return View(model);
-        }
 
+<<<<<<< HEAD
         /* [HttpPost]
          public IActionResult AddBluRay()
          {
@@ -84,5 +79,11 @@ namespace MyLittleBluRayThequeProject.Controllers
             }
             return Redirect("https://localhost:7266/");
         }
+=======
+
+
+
+
+>>>>>>> feat/Valentin
     }
 }

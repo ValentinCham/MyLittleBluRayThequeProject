@@ -43,7 +43,7 @@
         /// <summary>
         /// Langues disponibles sur le BR
         /// </summary>
-        public List<string> Langues { get; set; }
+        public long[] Langues { get; set; }
 
         /// <summary>
         /// Sous-titres disponible sur le BR

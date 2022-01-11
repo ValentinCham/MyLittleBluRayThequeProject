@@ -4,12 +4,12 @@ using Npgsql;
 
 namespace MyLittleBluRayThequeProject.Repositories
 {
-    public class RealisateurRepository 
+    public class ScenaristeRepository
     {
-        public RealisateurRepository()
+        public ScenaristeRepository()
         {
         }
-        public List<Personne> GetRealisateurfromBluRay(long Id)
+        public List<Personne> GetScenaristefromBluRay(long Id)
         {
             NpgsqlConnection conn = null;
             List<Personne> result = new List<Personne>();
@@ -20,7 +20,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("SELECT  \"Personne\".\"Nom\", \"Personne\".\"Prenom\"  FROM  \"BluRayTheque\".\"Realisateur\", \"BluRayTheque\".\"Personne\" where \"Realisateur\".\"IdBluRay\" = @i and \"Realisateur\".\"IdRealisateur\" = \"Personne\".\"Id\"", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT  \"Personne\".\"Nom\", \"Personne\".\"Prenom\"  FROM  \"BluRayTheque\".\"Scenariste\", \"BluRayTheque\".\"Personne\" where \"Realisateur\".\"IdBluRay\" = @i and \"Realisateur\".\"IdScenariste\" = \"Personne\".\"Id\"", conn);
                 command.Parameters.AddWithValue("i", Id);
 
                 // Execute the query and obtain a result set
@@ -45,7 +45,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
             return result;
         }
-        public void createRealisateur(long idBr, long idReal)
+        public void createScenariste(long idBr, long idScena)
         {
             NpgsqlConnection conn = null;
             try
@@ -55,11 +55,11 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("Insert into \"BluRayTheque\".\"Realisateur\" (\"IdBluRay\", \"IdRealisateur\") values (@idBr, @idReal)", conn);
+                NpgsqlCommand command = new NpgsqlCommand("Insert into \"BluRayTheque\".\"Scenariste\" (\"IdBluRay\", \"IdScenariste\") values (@idBr, @idScena)", conn);
 
                 command.Parameters.AddWithValue("idBr", idBr);
-                command.Parameters.AddWithValue("idReal", idReal);
-              
+                command.Parameters.AddWithValue("idScena", idScena);
+
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();
 
@@ -73,4 +73,5 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
         }
     }
+
 }
