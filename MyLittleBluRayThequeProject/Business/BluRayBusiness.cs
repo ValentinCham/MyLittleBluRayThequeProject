@@ -100,6 +100,15 @@ namespace MyLittleBluRayThequeProject.Business
             bluRayRepository.DeleteBluRay(id);
 
         }
+        public List<BluRay> GetListBluRayEmprunter()
+        {
+           return bluRayRepository.GetListBluRayEmprunter();
+        }
+
+        public void RendreBluRay(long Id)
+        {
+            bluRayRepository.RendreBluRay(Id);
+        }
     }
     
 }

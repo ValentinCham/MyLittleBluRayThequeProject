@@ -67,7 +67,6 @@ namespace MyLittleBluRayThequeProject.Controllers
         {
             EmprunterBluRayViewModel model = new EmprunterBluRayViewModel();
             var br = brRepository.GetListeBluRay();
-            model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
             if (id != default)
             {
                 brRepository.Empruter(id);

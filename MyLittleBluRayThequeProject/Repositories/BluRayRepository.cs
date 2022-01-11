@@ -318,5 +318,42 @@ namespace MyLittleBluRayThequeProject.Repositories
             return result;
 
         }
+        public List<BluRay> GetListBluRayEmprunter()
+        {
+            NpgsqlConnection conn = null;
+            List<BluRay> result = new List<BluRay>();
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Titre\", \"Duree\", \"Version\" ,\"DateSortie\" FROM \"BluRayTheque\".\"BluRay\"  WHERE \"BluRay\".\"Disponible\" = false", conn);
+
+                // Execute the query and obtain a result set
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                // Output rows
+                while (dr.Read())
+                    result.Add(new BluRay
+                    {
+                        Id = long.Parse(dr[0].ToString()),
+                        Titre = dr[1].ToString(),
+                        Duree = long.Parse(dr[2].ToString()),
+                        Version = dr[3].ToString(),
+                        DateSortie = DateTime.Parse(dr[4].ToString()),
+                    });
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return result;
+        }
     }
 }
