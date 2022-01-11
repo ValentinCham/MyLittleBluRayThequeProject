@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MyLittleBluRayThequeProject.Models;
 using MyLittleBluRayThequeProject.Repositories;
 using System.Diagnostics;
-
+using MyLittleBluRayThequeProject.DTOs;
 
 namespace MyLittleBluRayThequeProject.Controllers
 {
@@ -46,26 +46,10 @@ namespace MyLittleBluRayThequeProject.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        
-        public IActionResult AjouterBluRay()
-        {
-            AddBluRayBodyViewModel model = new AddBluRayBodyViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult AddBluRay(AddBluRayBodyViewModel model)
-        {
-            brBusiness.AddBluRay(model.Titre, model.Duree, model.Date, model.Version, true);
-            IndexViewModel model2 = new IndexViewModel();
-            var br = brBusiness.GetListeBluRay();
-            model2.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
-            return View("Index", model2);
-        }
 
 
 
 
-     
+
     }
 }

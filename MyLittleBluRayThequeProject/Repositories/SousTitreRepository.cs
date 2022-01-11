@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLittleBluRayThequeProject.DTOs;
 using Npgsql;
-
 namespace MyLittleBluRayThequeProject.Repositories
 {
-    public class RealisateurRepository 
+    public class SousTitreRepository
     {
-        public RealisateurRepository()
+        public SousTitreRepository()
         {
         }
-        public List<Personne> GetRealisateurfromBluRay(long Id)
+        public List<Langue> GetSousTitrefromBluRay(long Id)
         {
             NpgsqlConnection conn = null;
-            List<Personne> result = new List<Personne>();
+            List<Langue> result = new List<Langue>();
             try
             {
                 // Connect to a PostgreSQL database
@@ -20,7 +19,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("SELECT  \"Personne\".\"Nom\", \"Personne\".\"Prenom\"  FROM  \"BluRayTheque\".\"Realisateur\", \"BluRayTheque\".\"Personne\" where \"Realisateur\".\"IdBluRay\" = @i and \"Realisateur\".\"IdRealisateur\" = \"Personne\".\"Id\"", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT  \"RefLangue\".\"Id\", \"RefLangue\".\"Langue\"  FROM  \"BluRayTheque\".\"RefLangue\", \"BluRayTheque\".\"BluRaySsTitre\" where \"BluRaySsTitre\".\"IdBluRay\" = @i and \"RefLangue\".\"Id\" = \"BluRaySsTitre\".\"IdssTitreLangue\"", conn);
                 command.Parameters.AddWithValue("i", Id);
 
                 // Execute the query and obtain a result set
@@ -28,10 +27,10 @@ namespace MyLittleBluRayThequeProject.Repositories
 
                 // Output rows
                 while (dr.Read())
-                    result.Add(new Personne
+                    result.Add(new Langue
                     {
-                        Nom = dr[0].ToString(),
-                        Prenom = dr[1].ToString(),
+                        Id = long.Parse(dr[0].ToString()),
+                        Valeur = dr[1].ToString(),
                     });
 
 
@@ -45,7 +44,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             }
             return result;
         }
-        public void createRealisateur(long idBr, long idReal)
+        public void createSousTitre(long idBr, long idss)
         {
             NpgsqlConnection conn = null;
             try
@@ -55,11 +54,11 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("Insert into \"BluRayTheque\".\"Realisateur\" (\"IdBluRay\", \"IdRealisateur\") values (@idBr, @idReal)", conn);
+                NpgsqlCommand command = new NpgsqlCommand("Insert into \"BluRayTheque\".\"BluRaySsTitre\" (\"IdBluRay\", \"IdssTitreLangue\") values (@idBr, @idss)", conn);
 
                 command.Parameters.AddWithValue("idBr", idBr);
-                command.Parameters.AddWithValue("idReal", idReal);
-              
+                command.Parameters.AddWithValue("idss", idss);
+
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();
 

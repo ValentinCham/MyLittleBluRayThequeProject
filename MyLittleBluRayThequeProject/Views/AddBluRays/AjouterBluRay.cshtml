@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+
+<title>Ajouter un BluRay</title>
+
+</head>
+
+@model AddBluRayBodyViewModel
+<h2>Ajouter un nouveau BluRay</h2>
+
+<div>
+@if(!@Model.createBluRay){
+<form asp-controller="AddBluRays" asp-action="CreateBluRay" method="post"> 
+	<div class="mb-3">
+		  <input type="text" class="form-control" name="Titre" id="titre" asp-form="@Model.Titre" placeholder="Titre du BluRay" required/>
+		</div>
+
+		<div class="mb-3">
+		  <input type="number" class="form-control" name="Duree" asp-form="@Model.Duree" id="duree" placeholder="Durée du film" required/>
+		</div>
+
+		<div class="form-floating mb-4 d-flex">
+		  <input 
+				 type="text"
+				 class="datepicker_input form-control border-2"3
+				 name="Date"
+				 id="date"
+				 required
+				 asp-form="@Model.Date"
+				 placeholder="DD/MM/YYYY"/>
+		  <label for="datepicker1">Date de sortie du film (jj/mm/aaaa)</label>
+		</div>
+		
+		<div class="input-group mb-3">
+			  <label class="input-group-text" for="inputGroupSelect01">Version</label>
+			  <select class="form-select" name="Version" id="version" asp-form="@Model.Version">
+				<option value="courte">Courte</option>
+				<option value="longue">Longue</option>
+			  </select>
+			</div>
+			<div class="input-group mb-3">
+			  <label class="input-group-text" asp-for="@Model.idRealisateur">Choix du Realisateur</label>
+			  <select asp-for="@Model.idRealisateur" asp-items="@Model.SelectedPersonne" >
+			  </select>
+			</div>
+			<div class="input-group mb-3">
+			  <label class="input-group-text" asp-for="@Model.idScenariste">Choix du Scenariste</label>
+			  <select asp-for="@Model.idScenariste" asp-items="@Model.SelectedPersonne" >
+			  </select>
+			</div>
+
+				<label class="Langue" asp-for="@Model.Langues"> Choix des langues</label>
+				<br>
+			<select asp-for="@Model.Langues" 
+					asp-items="@Model.SelectedLangues" multiple>
+					
+			</select>
+			<br>
+			<label class="Langue" asp-for="@Model.SousTitres"> Choix des sous-titres</label>
+				<br>
+			<select asp-for="@Model.SousTitres" 
+					asp-items="@Model.SelectedLangues" multiple>
+					
+			</select>
+			<br>
+			<input class="btn btn-primary" type="submit" value="Ajouter"/>
+
+	</form>
+}
+</div>
+
+			
+
+<style>
+.labelForm {
+	text-align: center;
+	font-weight: normal;
+}
+
+.selectForm {
+	display: inline-block !important;
+	width: auto !important;
+	vertical-align: middle;
+}
+
+.ss-main .ss-multi-selected .ss-values .ss-value {
+	background-color: #5a4d9bf2;
+}
+.form-floating > .bi-calendar-date + .datepicker_input + label {
+  padding-left: 3.5rem;
+  z-index: 3;
+}
+</style>
