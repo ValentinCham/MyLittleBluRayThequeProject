@@ -49,12 +49,7 @@ namespace MyLittleBluRayThequeProject.Controllers
         }
 
 
-<<<<<<< HEAD
-        /* [HttpPost]
-         public IActionResult AddBluRay()
-         {
-             brRepository.AjouterBluRay()
-         }*/
+
 
         public IActionResult Remove(long id)
         {
@@ -79,11 +74,6 @@ namespace MyLittleBluRayThequeProject.Controllers
             }
             return Redirect("https://localhost:7266/");
         }
-=======
 
-
-
-
->>>>>>> feat/Valentin
     }
 }

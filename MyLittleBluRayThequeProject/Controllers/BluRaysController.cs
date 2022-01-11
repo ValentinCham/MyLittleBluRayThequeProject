@@ -14,6 +14,7 @@ namespace MyLittleBluRayThequeProject.Controllers
 
         private readonly BluRayRepository brRepository;
         private readonly BluRayBusiness brBusiness;
+
         private readonly BluRayRepository bluRayDispo;
         private readonly BluRayRepository bluRayEmprunt;
 
@@ -29,10 +30,9 @@ namespace MyLittleBluRayThequeProject.Controllers
         [HttpGet()]
         public ObjectResult GetListeBluRay()
         {
-            List<BluRay> br = brBusiness.GetListeBluRay();
+            List<InfoBluRayViewModel> br = brBusiness.GetListeBluRay();
 
-            List<InfoBluRayViewModel> bluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
-            return new OkObjectResult(bluRays);
+            return new OkObjectResult(br);
         }
 
         [HttpGet("{IdBluray}")]

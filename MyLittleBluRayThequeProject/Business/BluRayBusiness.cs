@@ -13,7 +13,8 @@ namespace MyLittleBluRayThequeProject.Business
         private readonly RealisateurRepository realisateurRepository;
         private readonly ScenaristeRepository scenaristeRepository;
         private readonly LangueRepository langueRepository; 
-        private readonly SousTitreRepository sousTitreRepository;   
+        private readonly SousTitreRepository sousTitreRepository;
+      
 
         public BluRayBusiness()
         {
@@ -23,17 +24,18 @@ namespace MyLittleBluRayThequeProject.Business
             this.sousTitreRepository = new SousTitreRepository();
             this.bluRayRepository = new BluRayRepository();
             this.personneRepository = new PersonneRepository();
+            
         }
       
         public List<BluRay> GetListeBluRay()
         {
-            List<BluRay> bluRays = new();
-            bluRays = bluRayRepository.GetListeBluRay();
-            if (bluRays == null)
+            List<BluRay> br = new();
+            br = bluRayRepository.GetListeBluRay();
+            if (br == null)
             {
                 throw new ArgumentException($"Blurays non trouvé");
             }
-            return bluRays;
+            return br;
         }
         
         public List<Langue> GetLangues()
@@ -83,7 +85,21 @@ namespace MyLittleBluRayThequeProject.Business
             }
         }
 
-         
+        public void EmprunterBluRay(long id)
+        {
+            bluRayRepository.Empruter(id);
+        }
+
+        public BluRay bluRayDisponible(long id)
+        {
+            BluRay br = bluRayRepository.Dispo( id);
+            return br;
+        }
+        public void DeleteEmprunt(long id)
+        {
+            bluRayRepository.DeleteBluRay(id);
+
+        }
     }
     
 }
