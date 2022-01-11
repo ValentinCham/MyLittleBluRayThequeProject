@@ -15,6 +15,7 @@ namespace MyLittleBluRayThequeProject.Controllers
         private readonly BluRayRepository brRepository;
         private readonly BluRayBusiness brBusiness;
         private readonly BluRayRepository bluRayDispo;
+        private readonly BluRayRepository bluRayEmprunt;
 
         public BluRaysController(ILogger<BluRaysController> logger)
         {
@@ -22,6 +23,7 @@ namespace MyLittleBluRayThequeProject.Controllers
             brRepository = new BluRayRepository();
             brBusiness = new BluRayBusiness();
             bluRayDispo = new BluRayRepository();
+            bluRayEmprunt = new BluRayRepository();
         }
 
         [HttpGet()]
@@ -47,9 +49,9 @@ namespace MyLittleBluRayThequeProject.Controllers
         }
         
         [HttpPost("{IdBluray}/Emprunt")]
-        public ObjectResult EmprunterBluRay([FromRoute]IdBluRayRoute route)
+        public void EmprunterBluRay([FromRoute]IdBluRayRoute route)
         {
-            return new CreatedResult($"{route.IdBluray}", null);
+            bluRayEmprunt.Empruter(route.IdBluray);
         }
 
         [HttpGet("{IdBluray}/Disponible")]

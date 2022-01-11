@@ -74,14 +74,8 @@ namespace MyLittleBluRayThequeProject.Controllers
 
         public IActionResult EmpruterUnBluRay(long id)
         {
-            IndexViewModel model = new IndexViewModel();
-            var br = brRepository.GetListeBluRay();
-            model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
-            if (id != default)
-            {
-                brRepository.Empruter(id);
-            }
-            return Redirect("https://localhost:7266/");
+            EmprunterBluRayViewModel model = new EmprunterBluRayViewModel();
+            return View(model);
         }
 
 

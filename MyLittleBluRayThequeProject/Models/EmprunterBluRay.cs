@@ -6,6 +6,6 @@ namespace MyLittleBluRayThequeProject.Models
 {
     public class EmprunterBluRayViewModel
     {
-        public BluRay Emprunt { get; set; }
+        public Boolean Emprunt { get; set; }
     }
 }
