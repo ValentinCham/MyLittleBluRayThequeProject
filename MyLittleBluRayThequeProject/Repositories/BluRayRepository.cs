@@ -169,8 +169,8 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"BluRay\" where \"BluRay\".\"Id\" = @id", conn);
-                command.Parameters.AddWithValue("i", Id);
+                NpgsqlCommand command = new NpgsqlCommand("UPDATE \"BluRayTheque\".\"BluRay\" SET \"Emprunt\" = true, \"Disponible\" = true WHERE \"Id\" = @id", conn);
+                command.Parameters.AddWithValue("id", Id);
 
                 // Execute the query and obtain a result set
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -195,7 +195,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("UPDATE \"BluRayTheque\".\"BluRay\" SET \"Emprunt\" = false, \"Disponible\" = false WHERE \"Id\" = @id", conn);
+                NpgsqlCommand command = new NpgsqlCommand("UPDATE \"BluRayTheque\".\"BluRay\" SET \"Emprunt\" = false, \"Disponible\" = false WHERE \"Disponible\" = true AND \"Id\" = @id", conn);
                 command.Parameters.AddWithValue("id", Id);
 
                 // Execute the query and obtain a result set
@@ -260,7 +260,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("UPDATE \"BluRayTheque\".\"BluRay\" SET \"Disponible\" = true WHERE \"Id\" = @id", conn);
+                NpgsqlCommand command = new NpgsqlCommand("UPDATE \"BluRayTheque\".\"BluRay\" SET \"Emprunt\" = true, \"Disponible\" = true WHERE \"Disponible\" = false AND \"Id\" = @id", conn);
                 command.Parameters.AddWithValue("id", Id);
 
                 // Execute the query and obtain a result set

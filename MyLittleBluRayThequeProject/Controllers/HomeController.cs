@@ -83,10 +83,5 @@ namespace MyLittleBluRayThequeProject.Controllers
             }
             return Redirect("https://localhost:7266/");
         }
-
-
-
-
-
     }
 }

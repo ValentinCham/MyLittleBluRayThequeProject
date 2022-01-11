@@ -61,5 +61,11 @@ namespace MyLittleBluRayThequeProject.Controllers
             return br;
         }
 
+        [HttpDelete("{IdBluray}/Emprunt")]
+        public void DeleteEmprunt([FromRoute] IdBluRayRoute route)
+        {
+            bluRayEmprunt.DeleteBluRay(route.IdBluray);
+        }
+
     }
 }
