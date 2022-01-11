@@ -8,7 +8,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //builder.Services.AddControllers();
-
+var hostUrl = "http://0.0.0.0:5001"; //configuration["hosturl"];
+builder.WebHost
+    .UseKestrel()
+    .UseUrls(hostUrl)
+    .UseContentRoot(Directory.GetCurrentDirectory())
+    .UseIISIntegration();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
