@@ -14,12 +14,16 @@ namespace MyLittleBluRayThequeProject.Controllers
 
         private readonly BluRayRepository brRepository;
         private readonly BluRayBusiness brBusiness;
+        private readonly BluRayRepository bluRayDispo;
+        private readonly BluRayRepository bluRayEmprunt;
 
         public BluRaysController(ILogger<BluRaysController> logger)
         {
             _logger = logger;
             brRepository = new BluRayRepository();
             brBusiness = new BluRayBusiness();
+            bluRayDispo = new BluRayRepository();
+            bluRayEmprunt = new BluRayRepository();
         }
 
         [HttpGet()]
@@ -37,25 +41,26 @@ namespace MyLittleBluRayThequeProject.Controllers
             BluRay br = brBusiness.GetBluRay(route.IdBluray);
             return new OkObjectResult(br);
         }
-
+     
         [HttpPost("{IdBluray}/Emprunt")]
-        public ObjectResult EmprunterBluRay([FromRoute] IdBluRayRoute route)
+        public void EmprunterBluRay([FromRoute]IdBluRayRoute route)
         {
-            return new CreatedResult($"{route.IdBluray}", null);
+            bluRayEmprunt.Empruter(route.IdBluray);
         }
-        [HttpPost()]
-        public ObjectResult AddBluRay(string titre, long duree, DateTime date, string version, Boolean disponible)
+
+        [HttpGet("{IdBluray}/Disponible")]
+        public BluRay bluRayDisponible([FromRoute] IdBluRayRoute route)
         {
-            BluRay bluRay = new BluRay();
-            bluRay.Titre = titre;
-            bluRay.Duree = duree;
-            bluRay.DateSortie = date;   
-            bluRay.Version = version;
-            bluRay.Disponible  = disponible;
-            brBusiness.AddBluRay(titre, duree, date, version, disponible);
+            BluRay br = bluRayDispo.Dispo(route.IdBluray);
+            return br;
+        }
 
 
-            return new OkObjectResult(bluRay);
+        [HttpDelete("{IdBluray}/Emprunt")]
+        public void DeleteEmprunt([FromRoute] IdBluRayRoute route)
+        {
+            bluRayEmprunt.DeleteBluRay(route.IdBluray);
         }
+
     }
 }

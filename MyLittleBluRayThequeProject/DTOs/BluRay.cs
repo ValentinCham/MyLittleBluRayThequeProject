@@ -55,8 +55,14 @@
         /// </summary>
         public string? Version { get; set; }
 
-        public Boolean Disponible { get; set; }
+        /// <summary>
+        /// Emprunter un BluRay
+        /// </summary>
+        public Boolean Emprunt { get; set; }
 
-        public Boolean Emprunt  { get; set; }               
+        /// <summary>
+        /// Disponibilité du BluRay
+        /// </summary>
+        public Boolean Disponible { get; set; }
     }
 }
