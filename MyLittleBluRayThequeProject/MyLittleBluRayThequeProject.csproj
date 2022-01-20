@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\BluRaysController.cs" />
+    <Compile Remove="Models\InfoBluRayApiViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>

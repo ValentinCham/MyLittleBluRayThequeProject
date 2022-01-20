@@ -12,21 +12,21 @@ namespace MyLittleBluRayThequeProject.Business
         private readonly PersonneRepository personneRepository;
         private readonly RealisateurRepository realisateurRepository;
         private readonly ScenaristeRepository scenaristeRepository;
-        private readonly LangueRepository langueRepository; 
+        private readonly LangueRepository langueRepository;
         private readonly SousTitreRepository sousTitreRepository;
-      
+        private readonly ActeurRepository acteurRepository;
 
         public BluRayBusiness()
         {
             this.realisateurRepository = new RealisateurRepository();
-            this.scenaristeRepository =     new ScenaristeRepository();
-            this.langueRepository = new LangueRepository(); 
+            this.scenaristeRepository = new ScenaristeRepository();
+            this.langueRepository = new LangueRepository();
             this.sousTitreRepository = new SousTitreRepository();
             this.bluRayRepository = new BluRayRepository();
             this.personneRepository = new PersonneRepository();
-            
+            this.acteurRepository = new ActeurRepository();
         }
-      
+
         public List<BluRay> GetListeBluRay()
         {
             List<BluRay> br = new();
@@ -37,7 +37,7 @@ namespace MyLittleBluRayThequeProject.Business
             }
             return br;
         }
-        
+
         public List<Langue> GetLangues()
         {
             List<Langue> langues = new();
@@ -49,7 +49,7 @@ namespace MyLittleBluRayThequeProject.Business
             return langues;
         }
 
-        
+
         public BluRay GetBluRay(long idBr)
         {
             BluRay bluRay = bluRayRepository.GetBluRay(idBr);
@@ -67,7 +67,7 @@ namespace MyLittleBluRayThequeProject.Business
             return bluRay;
         }
 
-      
+
         public void CreateBluRay(AddBluRayBodyViewModel model)
         {
             long idBr = bluRayRepository.CreateBluRay(model.Titre, model.Duree, model.Date, model.Version, true);
@@ -78,11 +78,21 @@ namespace MyLittleBluRayThequeProject.Business
             //acteurs
 
             // langues
-            foreach(string id in model.Langues) {
+            foreach (string id in model.Langues)
+            {
                 langueRepository.createLangue(idBr, long.Parse(id));
-                //sous titres
+            }
+            //sous titres
+            foreach (string id in model.SousTitres)
+            {
                 sousTitreRepository.createSousTitre(idBr, long.Parse(id));
             }
+            //acteurs
+            foreach (string id in model.IdActeur)
+            {
+                acteurRepository.createActeurs(idBr, long.Parse(id));
+            }
+
         }
 
         public void EmprunterBluRay(long id)
@@ -92,7 +102,7 @@ namespace MyLittleBluRayThequeProject.Business
 
         public BluRay bluRayDisponible(long id)
         {
-            BluRay br = bluRayRepository.Dispo( id);
+            BluRay br = bluRayRepository.Dispo(id);
             return br;
         }
         public void DeleteEmprunt(long id)
@@ -102,12 +112,32 @@ namespace MyLittleBluRayThequeProject.Business
         }
         public List<BluRay> GetListBluRayEmprunter()
         {
-           return bluRayRepository.GetListBluRayEmprunter();
+            return bluRayRepository.GetListBluRayEmprunter();
         }
 
         public void RendreBluRay(long Id)
         {
             bluRayRepository.RendreBluRay(Id);
+        }
+
+        public void supprimeFilm(long Id)
+        {
+            realisateurRepository.DeleteRealisateur(Id);
+            // scenariste
+            scenaristeRepository.DeleteScenariste(Id);
+
+            // langues
+            langueRepository.DeleteLangues(Id);
+            
+            //sous titres
+            sousTitreRepository.DeleteSousTitre(Id);
+            
+            //acteurs
+         
+            acteurRepository.DeleteActeurs(Id);
+            
+            bluRayRepository.supprimeFilm(Id);
+           
         }
     }
     

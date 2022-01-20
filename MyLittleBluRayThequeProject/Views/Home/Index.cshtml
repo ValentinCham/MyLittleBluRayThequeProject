@@ -21,7 +21,8 @@
      <div class="audit-card">
     <ul>
       <h2>@br.Titre</h2>
-  
+        <span>Version : @br.Version</span> 
+        <br>
       <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="@br.Id"> Plus d'information...</a>
     </ul>
   </div>
@@ -52,15 +53,29 @@
     </div>
 
     <div>
-    Date de sortie : @Model.SelectedBluRay.DateSortie.ToShortDateString()
+    Date de sortie : @Model.SelectedBluRay.DateSortie.ToShortDateString() @Model.SelectedBluRay.Disponible.ToString()
     </div>
     <div>Réalisateur : @Model.SelectedBluRay.Realisateur?.Nom - @Model.SelectedBluRay.Realisateur?.Prenom</div>
-    <button class="button">
-       <a asp-area="" asp-controller="Home" asp-action="Remove" asp-route-id="@Model.SelectedBluRay.Id"> Supprimer</a>
+    
+    @if (@Model.SelectedBluRay.Disponible == true)
+    {
+    <button class="button" >
+       <a asp-area="" asp-controller="Home" asp-action="Remove" asp-route-id="@Model.SelectedBluRay.Id" disabled=true> Supprimer</a>
     </button>
     <button class="emprunter">
-       <a asp-area="" asp-controller="Home" asp-action="EmpruterUnBluRay" asp-route-id="@Model.SelectedBluRay.Id"> Emprunter</a>
+       <a asp-area="" asp-controller="Home" asp-action="EmpruterUnBluRay" asp-route-id="@Model.SelectedBluRay.Id" disabled= true> Emprunter</a>
     </button>
+    }
+    @if (@Model.SelectedBluRay.Disponible == false)
+    {
+        <button class="button" >
+        <span>Supprimer</span>   
+          </button>
+          <button class="emprunter">
+        <span>Emprunter</span>   
+    </button>
+    }
+
   </div>
 </div>
 }

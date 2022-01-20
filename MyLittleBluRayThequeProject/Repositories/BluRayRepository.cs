@@ -68,7 +68,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 conn.Open();
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Titre\", \"Duree\", \"Version\" , \"DateSortie\" FROM \"BluRayTheque\".\"BluRay\" where \"Id\" = @p", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT \"Id\", \"Titre\", \"Duree\", \"Version\" , \"DateSortie\", \"Disponible\" FROM \"BluRayTheque\".\"BluRay\" where \"Id\" = @p", conn);
                 command.Parameters.AddWithValue("p", Id);
 
                 // Execute the query and obtain a result set
@@ -83,6 +83,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                         Duree = long.Parse(dr[2].ToString()),
                         Version = dr[3].ToString(),
                         DateSortie = DateTime.Parse(dr[4].ToString()),
+                        Disponible = Boolean.Parse(dr[5].ToString()),  
                     });
 
                 result = qryResult.SingleOrDefault();
@@ -138,13 +139,13 @@ namespace MyLittleBluRayThequeProject.Repositories
         public void supprimeFilm(long Id)
         {
             NpgsqlConnection conn = null;
-            BluRay result = new BluRay();
             try
             {
-                List<BluRay> qryResult = new List<BluRay>();
                 // Connect to a PostgreSQL database
                 conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
                 conn.Open();
+               
+                //Supprimer les liens avec les langues, les acteurs, les realisateurs et les scenaristes
 
                 // Define a query returning a single row result set
                 NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"BluRay\" where \"BluRay\".\"Id\" = @id", conn);

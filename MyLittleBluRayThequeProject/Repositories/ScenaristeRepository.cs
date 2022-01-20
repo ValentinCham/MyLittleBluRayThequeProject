@@ -72,6 +72,34 @@ namespace MyLittleBluRayThequeProject.Repositories
                 }
             }
         }
+        public void DeleteScenariste(long idBr)
+        {
+            NpgsqlConnection conn = null;
+            try
+            {
+                // Connect to a PostgreSQL database
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn.Open();
+
+                //Supprimer les liens avec les langues, les acteurs, les realisateurs et les scenaristes
+
+                // Define a query returning a single row result set
+                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"Scenariste\" where \"Scenariste\".\"IdBluRay\" = @id", conn);
+                command.Parameters.AddWithValue("id", idBr);
+
+
+                // Execute the query and obtain a result set
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+        }
     }
 
 }

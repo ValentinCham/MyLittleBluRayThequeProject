@@ -41,6 +41,7 @@ namespace MyLittleBluRayThequeProject.Models
         public string idRealisateur { get; set; }
 
         public string idScenariste { get; set; }
+        public List<string> IdActeur { get; set; }
 
         public List<string> Langues { get; set; }
 

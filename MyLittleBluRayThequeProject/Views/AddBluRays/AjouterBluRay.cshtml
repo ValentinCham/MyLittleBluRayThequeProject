@@ -50,20 +50,28 @@
 			  <select asp-for="@Model.idScenariste" asp-items="@Model.SelectedPersonne" >
 			  </select>
 			</div>
+			<div class="input-group mb-3">
+			  <label class="input-group-text" asp-for="@Model.idScenariste">Choix des Acteurs</label>
+			  <select asp-for="@Model.IdActeur" asp-items="@Model.SelectedPersonne" multiple>
+			  </select>
+			</div>
+			<div class="input-group mb-3">
 
-				<label class="Langue" asp-for="@Model.Langues"> Choix des langues</label>
-				<br>
+			<label class="input-group-text" asp-for="@Model.Langues">Choix des langues</label>
+
 			<select asp-for="@Model.Langues" 
 					asp-items="@Model.SelectedLangues" multiple>
 					
 			</select>
-			<br>
-			<label class="Langue" asp-for="@Model.SousTitres"> Choix des sous-titres</label>
+			</div>
+			<div class="input-group mb-3">
+			<label class="input-group-text" asp-for="@Model.Langues">Choix des Sous-Titres</label>
 				<br>
 			<select asp-for="@Model.SousTitres" 
 					asp-items="@Model.SelectedLangues" multiple>
 					
 			</select>
+			</div>
 			<br>
 			<input class="btn btn-primary" type="submit" value="Ajouter"/>
 

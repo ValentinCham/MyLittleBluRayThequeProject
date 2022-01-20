@@ -58,7 +58,7 @@ namespace MyLittleBluRayThequeProject.Controllers
             model.BluRays = br.ConvertAll(InfoBluRayViewModel.ToModel);
             if (id != default)
             {
-                brRepository.supprimeFilm(id);
+                brBusiness.supprimeFilm(id);
             }
             return Redirect("https://localhost:7266/");
         }
