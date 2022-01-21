@@ -55,8 +55,27 @@
     <div>
     Date de sortie : @Model.SelectedBluRay.DateSortie.ToShortDateString() @Model.SelectedBluRay.Disponible.ToString()
     </div>
-    <div>Réalisateur : @Model.SelectedBluRay.Realisateur?.Nom - @Model.SelectedBluRay.Realisateur?.Prenom</div>
-    
+    <div>Réalisateur : @Model.SelectedBluRay.Realisateur?.Nom  @Model.SelectedBluRay.Realisateur?.Prenom</div>
+    <div>Scenariste : @Model.SelectedBluRay.Realisateur?.Nom  @Model.SelectedBluRay.Realisateur?.Prenom</div>
+    <div>
+        Acteurs : @foreach (var act in Model.SelectedBluRay.Acteurs)
+        {
+            <div>nom :  @act.Nom</div>
+            <div>prenom :  @act.Prenom</div>
+        }
+     </div>
+        <div>
+        Langues disponible : @foreach (var lang in Model.SelectedBluRay.Langues)
+        {
+            <div> @lang.Valeur</div>
+        }
+        </div>
+       <div>
+        Sous-titres disponibles : @foreach (var ss in Model.SelectedBluRay.SsTitres)
+        {
+            <div> @ss.Valeur</div>
+        }
+        </div>
     @if (@Model.SelectedBluRay.Disponible == true)
     {
     <button class="button" >

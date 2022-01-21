@@ -43,12 +43,12 @@
         /// <summary>
         /// Langues disponibles sur le BR
         /// </summary>
-        public long[] Langues { get; set; }
+        public List<Langue> Langues { get; set; }
 
         /// <summary>
         /// Sous-titres disponible sur le BR
         /// </summary>
-        public List<string> SsTitres { get; set; }
+        public List<Langue> SsTitres { get; set; }
 
         /// <summary>
         /// Version du film sur le BR

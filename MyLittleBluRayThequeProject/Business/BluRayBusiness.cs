@@ -64,6 +64,10 @@ namespace MyLittleBluRayThequeProject.Business
 
             bluRay.Acteurs = personneRepository.GetActeursBr(idBr);
 
+            bluRay.Langues = langueRepository.GetLanguefromBluRay(idBr);
+
+            bluRay.SsTitres = sousTitreRepository.GetSousTitrefromBluRay(idBr);
+
             return bluRay;
         }
 
