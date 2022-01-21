@@ -16,7 +16,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             try
             {
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=projet;Database=postgres;");
                 conn.Open();
 
                 // Define a query returning a single row result set
@@ -51,7 +51,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             try
             {
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=projet;Database=postgres;");
                 conn.Open();
 
                 // Define a query returning a single row result set
@@ -78,7 +78,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             try
             {
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=projet;Database=postgres;");
                 conn.Open();
 
                 //Supprimer les liens avec les langues, les acteurs, les realisateurs et les scenaristes

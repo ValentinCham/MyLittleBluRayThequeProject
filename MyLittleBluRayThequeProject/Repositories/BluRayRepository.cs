@@ -148,7 +148,7 @@ namespace MyLittleBluRayThequeProject.Repositories
                 //Supprimer les liens avec les langues, les acteurs, les realisateurs et les scenaristes
 
                 // Define a query returning a single row result set
-                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"BluRay\" where \"Disponible\" = true AND \"Emprunt\" = true AND \"Id\" = @id", conn);
+                NpgsqlCommand command = new NpgsqlCommand("DELETE FROM \"BluRayTheque\".\"BluRay\" where \"Disponible\" = true AND \"Titre\" IS NOT NULL AND \"Emprunt\" = true AND \"Id\" = @id", conn);
                 command.Parameters.AddWithValue("id", Id);
 
 
@@ -326,7 +326,7 @@ namespace MyLittleBluRayThequeProject.Repositories
             try
             {
                 // Connect to a PostgreSQL database
-                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=network;Database=postgres;");
+                conn = new NpgsqlConnection("Server=127.0.0.1;User Id=postgres;Password=projet;Database=postgres;");
                 conn.Open();
 
                 // Define a query returning a single row result set
